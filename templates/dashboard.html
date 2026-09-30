@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="wrap">
+  <h1>Welcome back, {{ user.username }}</h1>
+  <p class="lede">Start a new plan or reopen a recent one.</p>
+  <div class="planners tight">
+    <a class="planner-card" href="/home-planner"><h2>Home interior</h2><p>{{ counts.get('home', 0) }} plans saved</p></a>
+    <a class="planner-card" href="/party-planner"><h2>Party planner</h2><p>{{ counts.get('party', 0) }} plans saved</p></a>
+    <a class="planner-card" href="/jewelry-planner"><h2>Jewelry</h2><p>{{ counts.get('jewelry', 0) }} plans saved</p></a>
+  </div>
+  <h2>Recent plans</h2>
+  {% if recent %}
+  <ul class="rows">
+    {% for r in recent %}
+    <li><a href="/recommendations/{{ r.id }}"><strong>{{ CATEGORY_LABELS[r.category] }}</strong>
+      <span>Budget {{ r.response.budget|inr }}</span><span class="muted">{{ r.created_at|when }}</span></a></li>
+    {% endfor %}
+  </ul>
+  <p><a href="/history">See all history</a></p>
+  {% else %}
+  <p class="muted">No plans yet. Pick a planner above to create your first one.</p>
+  {% endif %}
+</section>
+{% endblock %}

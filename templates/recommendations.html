@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ CATEGORY_LABELS[category] }} plan | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="wrap">
+  <p class="crumb"><a href="/history">All plans</a></p>
+  <h1>{{ CATEGORY_LABELS[category] }} plan</h1>
+  <p class="lede">{{ data.summary }}</p>
+
+  <div class="totals">
+    <div><span class="muted">Budget</span><strong>{{ data.budget|inr }}</strong></div>
+    <div><span class="muted">Estimated spend</span><strong>{{ data.total_estimated|inr }}</strong></div>
+    <div><span class="pill {{ 'ok' if data.within_budget else 'warn' }}">{{ 'Within budget' if data.within_budget else 'Over budget' }}</span></div>
+  </div>
+
+  <div class="split big" role="img" aria-label="Budget split by category">
+    {% for a in data.allocation %}<span class="seg c{{ loop.index0 % 6 }}" style="flex:{{ [a.amount, 1]|max }}"></span>{% endfor %}
+  </div>
+  <ul class="legend">
+    {% for a in data.allocation %}<li><i class="c{{ loop.index0 % 6 }}"></i>{{ a.category }} <b>{{ a.amount|inr }}</b> ({{ a.percent }}%)</li>{% endfor %}
+  </ul>
+
+  {% for group in data['items']|groupby('category') %}
+  <h2>{{ group.grouper }}</h2>
+  <div class="cards">
+    {% for it in group.list %}
+    <article class="item {{ 'alt' if it.alternative }}">
+      <div class="item-top"><span class="badge">{{ it.platform }}</span>{% if it.alternative %}<span class="badge alt">Alternative</span>{% endif %}</div>
+      <h3>{{ it.name }}</h3>
+      <p class="price">{{ it.price|inr }}{% if it.quantity > 1 %} <span class="muted">x {{ it.quantity }} = {{ (it.price * it.quantity)|inr }}</span>{% endif %}</p>
+      {% if it.why %}<p class="muted">{{ it.why }}</p>{% endif %}
+      <a href="{{ it.url }}" target="_blank" rel="noopener noreferrer">Search on {{ it.platform }}</a>
+    </article>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  {% if data.tips %}<h2>Tips</h2><ul class="tips">{% for t in data.tips %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+  <p class="muted small-print">{{ data.disclaimer }}
+    {% if data.source == 'fallback' %} These are default suggestions because the AI service was unavailable or returned an unusable plan.{% endif %}</p>
+  <p><a class="btn ghost" href="/{{ category }}-planner">Plan again</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Home interior planner | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="wrap narrow">
+  <h1>Home interior planner</h1>
+  <p class="lede">Enter your budget, then list what each room needs.</p>
+  <form id="home-form" class="card form" novalidate>
+    <p class="form-error" role="alert" hidden></p>
+    <div class="grid2">
+      <label>Total budget (₹) <input name="budget" type="number" min="1" step="any" required placeholder="150000"></label>
+      <label>Style <select name="style">
+        <option>Modern</option><option>Minimalist</option><option>Scandinavian</option>
+        <option>Traditional Indian</option><option>Industrial</option><option>Boho</option></select></label>
+    </div>
+    <fieldset><legend>Rooms and items</legend>
+      <div id="rows"></div>
+      <button type="button" class="btn ghost small" id="add-row">Add another item</button>
+    </fieldset>
+    <label>Notes (optional) <textarea name="notes" rows="2" maxlength="500" placeholder="Rented flat, prefer light wood, need renter-friendly items"></textarea></label>
+    <button class="btn" type="submit">Get recommendations</button>
+  </form>
+  <template id="row-tpl">
+    <div class="item-row">
+      <select class="room" aria-label="Room"><option>Living Room</option><option>Kitchen</option><option>Bedroom</option>
+        <option>Dining Room</option><option>Kids Room</option><option>Study</option><option>Balcony</option></select>
+      <input class="item" list="item-list" aria-label="Item" placeholder="e.g. Ceiling fan" maxlength="60">
+      <input class="qty" type="number" min="1" max="50" value="1" aria-label="Quantity">
+      <button type="button" class="icon-btn remove" aria-label="Remove row">&times;</button>
+    </div>
+  </template>
+  <datalist id="item-list">
+    <option>Lights</option><option>Ceiling fan</option><option>Dining table</option><option>Sofa</option><option>Bed</option>
+    <option>Mattress</option><option>Wardrobe</option><option>Curtains</option><option>Rug</option><option>Wall art</option>
+    <option>Study table</option><option>TV unit</option><option>Coffee table</option><option>Bookshelf</option><option>Chair</option>
+  </datalist>
+</section>
+{% endblock %}

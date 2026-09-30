@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero wrap">
+  <h1>Tell us the budget. We split it sensibly.</h1>
+  <p class="lede">Plan a living room, a birthday or a wedding outfit. PocketSmart AI spreads your money across what matters and points you to Amazon, Flipkart, IKEA, Swiggy, Zomato and OYO.</p>
+  <div class="cta-row">
+    {% if user %}<a class="btn" href="/dashboard">Open dashboard</a>
+    {% else %}<a class="btn" href="/register">Start planning free</a><a class="btn ghost" href="/login">Log in</a>{% endif %}
+  </div>
+  <div class="sample" aria-label="Example budget split for a birthday party">
+    <p class="sample-title">Example: a 50,000 rupee birthday for 40 guests</p>
+    <div class="split" role="img" aria-label="Catering 40 percent, Decoration 25, Entertainment 20, Venue and stay 15">
+      <span class="seg c0" style="flex:40"></span><span class="seg c1" style="flex:25"></span>
+      <span class="seg c2" style="flex:20"></span><span class="seg c3" style="flex:15"></span>
+    </div>
+    <ul class="legend">
+      <li><i class="c0"></i>Catering <b>₹20,000</b></li><li><i class="c1"></i>Decoration <b>₹12,500</b></li>
+      <li><i class="c2"></i>Entertainment <b>₹10,000</b></li><li><i class="c3"></i>Venue &amp; stay <b>₹7,500</b></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap planners">
+  <a class="planner-card" href="/home-planner"><h2>Home interior</h2>
+    <p>Pick rooms and quantities of lights, fans, tables and more. Get cost-effective options from IKEA and Amazon.</p></a>
+  <a class="planner-card" href="/party-planner"><h2>Party planner</h2>
+    <p>Enter budget, guests and event type. Catering, decor, entertainment and stays are split for you.</p></a>
+  <a class="planner-card" href="/jewelry-planner"><h2>Jewelry</h2>
+    <p>Choose an occasion and style, and upload your outfit so the colours match.</p></a>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Party planner | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="wrap narrow">
+  <h1>Party planner</h1>
+  <p class="lede">We split your budget across catering, decoration and entertainment.</p>
+  <form id="party-form" class="card form" novalidate>
+    <p class="form-error" role="alert" hidden></p>
+    <div class="grid2">
+      <label>Total budget (₹) <input name="budget" type="number" min="1" step="any" required placeholder="50000"></label>
+      <label>Number of guests <input name="guests" type="number" min="1" max="5000" required placeholder="40"></label>
+      <label>Event type <select name="event_type">
+        <option>Birthday</option><option>Wedding</option><option>Corporate</option><option>Anniversary</option>
+        <option>Baby shower</option><option>Farewell</option></select></label>
+      <label>City <input name="city" maxlength="60" placeholder="Bengaluru"></label>
+    </div>
+    <label>Venue details <input name="venue" maxlength="120" placeholder="Community hall, home terrace, or undecided"></label>
+    <label class="check"><input type="checkbox" name="needs_stay"> Guests need accommodation (OYO)</label>
+    <label>Notes (optional) <textarea name="notes" rows="2" maxlength="500" placeholder="Vegetarian menu, kids' games, outdoor setup"></textarea></label>
+    <button class="btn" type="submit">Get recommendations</button>
+  </form>
+</section>
+{% endblock %}

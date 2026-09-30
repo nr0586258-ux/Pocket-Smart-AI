@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Jewelry planner | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="wrap narrow">
+  <h1>Jewelry planner</h1>
+  <p class="lede">Add a photo of your outfit and we'll match colours and style.</p>
+  <form id="jewelry-form" class="card form" novalidate>
+    <p class="form-error" role="alert" hidden></p>
+    <div class="grid2">
+      <label>Budget (₹) <input name="budget" type="number" min="1" step="any" required placeholder="20000"></label>
+      <label>Occasion <select name="occasion">
+        <option>Wedding</option><option>Festival</option><option>Party</option><option>Office</option>
+        <option>Engagement</option><option>Daily wear</option></select></label>
+      <label>Style <select name="style">
+        <option>Classic</option><option>Traditional</option><option>Minimal</option><option>Statement</option><option>Boho</option></select></label>
+      <label>Metal <select name="metal">
+        <option value="any">No preference</option><option>Gold</option><option>Silver</option>
+        <option>Rose gold</option><option>Oxidised</option></select></label>
+    </div>
+    <label>Outfit image (optional, JPG/PNG/WebP up to 5 MB)
+      <input type="file" name="outfit_image" id="outfit" accept="image/jpeg,image/png,image/webp"></label>
+    <img id="preview" class="preview" alt="Outfit preview" hidden>
+    <label>Notes (optional) <textarea name="notes" rows="2" maxlength="500" placeholder="Sensitive skin, prefer lightweight pieces"></textarea></label>
+    <button class="btn" type="submit">Get recommendations</button>
+  </form>
+</section>
+{% endblock %}
